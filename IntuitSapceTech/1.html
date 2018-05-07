@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Browser Speech Test</title>
+<script type="text/javascript">
+function checkSpeechSupport(){
+	var element=document.createElement("input");
+	if (!('webkitSpeech' in element)) {
+		alert("Sorry! Your browser does not support the Speech Input");
+	}
+}
+function checkanswer() {
+var answer = document.getElementById('q2answer').value;
+if (answer == 'lady gaga') {
+   alert("Well done!");
+}
+else {
+   alert("Oh No! Lady Gaga will be really upset you did not get this one right.");
+}
+}
+</script>
+</head>
+<body onLoad="checkSpeechSupport()">
+<form id="speechform">
+<fieldset id="inputs">
+    <legend>Music Quiz</legend>
+    <label for="q2answer">Name the person shown below:</label>
+    <input id="q2answer" name="q2answer" type="text" x-webkit-speech onwebkitspeechchange="checkanswer()"/><br/>
+    <img src="img1.png"/>
+</fieldset>
+</form>
+</body>
+</html>

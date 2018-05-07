@@ -1,0 +1,3 @@
+ <input type="text" name="text" id="textContent" placeholder="Enter text Here" />
+                                    <select id='voice' style="width:100px"></select>
+                                    <br><br><button name="textToVoice"onclick="speak()">TextToVoice</button>

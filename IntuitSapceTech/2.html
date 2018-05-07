@@ -1,0 +1,135 @@
+<html>
+<style>
+  .speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+  .speech input {border: 0; width: 240px; display: inline-block; height: 30px;}
+  .speech img {float: right; width: 40px }
+</style>
+
+<!-- Search Form -->
+<form id="labnol" method="get" action="https://www.google.com/search">
+  <div class="speech">
+    <input type="text" name="q" id="transcript" placeholder="Speak" />
+    <img onclick="startDictation() src="http://i.imgur.com/cHidSVu.gif">
+    <!--<img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" />-->
+  </div>
+</form>
+
+<!-- HTML5 Speech Recognition API -->
+<script>
+  function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('transcript').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('labnol').submit();
+      };
+
+      recognition.onerror = function(e) {
+        recognition.stop();
+      }
+
+    }
+  }
+</script>
+</html>
+
+
+function doSpeak(s) {
+    gstop=false;
+    var voiceSelect = _getid("voice");
+    var selectedVoice = null;
+    if(voiceSelect) {
+        selectedVoice = voiceSelect.value;
+    }
+
+    var msg = new SpeechSynthesisUtterance();
+    if(selectedVoice) {
+        msg.voice = window.speechSynthesis.getVoices().filter(function(voice) {
+        return voice.name == selectedVoice;
+      })[0];
+    }
+
+    //msg.voiceURI = 'native';
+    msg.volume = _getid('volume').value/100; // 0 to 1
+    var rate=parseFloat(_getid('rate').value);
+    if(!rate || isNaN(rate) || rate<0) rate=1;
+    if(rate>10) rate=10;
+    _getid('rate').value=rate;
+    msg.rate=rate;
+        msg.text = s;
+    //msg.lang = 'en-US';
+
+    //console.log(s);
+    msg.onend = function(e){
+      //console.log(e.target.text);
+      if(!e || !e.target)return;
+      //if(!window.speechSynthesis.speaking)return;
+      if(gstop)return;
+      var a=_findnext(chunkindex,e.target.text);
+      if(a){
+        proc_highlight(a);
+      }
+    }
+
+    function speak(callback) {
+    var voiceSelect = _getid("voice");
+    var selectedVoice = null;
+    if(voiceSelect) {
+        selectedVoice = voiceSelect.value;
+    }
+
+    text=document.getElementById("textContent").value;
+    var u = new SpeechSynthesisUtterance();
+    if(selectedVoice) {
+        u.voice = window.speechSynthesis.getVoices().filter(function(voice) {
+        return voice.name == selectedVoice;
+      })[0];
+    }
+    u.text = text;
+    u.lang = 'en-US';
+ 
+    u.onend = function () {
+        if (callback) {
+            callback();
+        }
+    };
+ 
+    u.onerror = function (e) {
+        if (callback) {
+            callback(e);
+        }
+    };
+ 
+    speechSynthesis.speak(u);
+}
+
+GET http://localhost:8000/js/CodeMirror5.13/lib/codemirror.css 404 (File not found)
+index.html:337 GET http://localhost:8000/js/common.js 404 (File not found)
+index.html:817 GET http://localhost:8000/images/gdrive/product20.png 404 (File not found)
+index.html:337 GET http://localhost:8000/js/common.js 404 (File not found)
+index.html:460 GET http://localhost:8000/js/CodeMirror5.13/lib/codemirror.css 404 (File not found)
+index.html:496 Uncaught TypeError: Cannot set property 'value' of null
+    at init_load (index.html:496)
+
+
+
+    Failed to load resource: the server responded with a status of 404 (File not found)
+common.js:1 Failed to load resource: the server responded with a status of 404 (File not found)
+product20.png:1 Failed to load resource: the server responded with a status of 404 (File not found)
+common.js:1 Failed to load resource: the server responded with a status of 404 (File not found)
+codemirror.css:1 Failed to load resource: the server responded with a status of 404 (File not found)
+index.html:496 Uncaught TypeError: Cannot set property 'value' of null
+    at init_load (index.html:496)
+    at index.html:527
+codemirror.css:1 Failed to load resource: the server responded with a status of 404 (File not found)
